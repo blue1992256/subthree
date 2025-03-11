@@ -9,11 +9,16 @@
 <div class="container">
   <div class="header">
     <div class="nav">
-      <div class="nav-item">Page</div>
-      <div class="nav-item">Page</div>
-      <div class="nav-item">Page</div>
-      <div sec:authorize="isAnonymous()" class="btn login-btn" onclick="socialLogin()">로그인</div>
-      <div sec:authorize="isAuthenticated()" class="btn logout-btn" onclick="logout()">로그아웃</div>
+      <div sec:authorize="isAnonymous()" class="login-btn" onclick="socialLogin()"></div>
+      <!-- 프로필 아이콘 및 드롭다운 -->
+      <div class="profile-menu" sec:authorize="isAuthenticated()">
+        <i class="profile-icon"></i>
+        <div class="dropdown-menu">
+          <div class="dropdown-item" onclick="editProfile()">정보 수정</div>
+          <div class="dropdown-item" onclick="logout()">로그아웃</div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -62,7 +67,8 @@
 
     <!-- 버튼 (제출 & 닫기) -->
     <div class="modal-buttons">
-      <button class="submit-btn" onclick="submitData()">제출</button>
+      <button class="submit-btn" onclick="submitData()">저장</button>
+      <button sec:authorize="isAuthenticated()" class="close-btn" onclick="closeModal()">닫기</button>
     </div>
   </div>
 </div>

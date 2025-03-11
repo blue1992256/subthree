@@ -2,7 +2,7 @@ let user = window.userData;
 
 document.addEventListener("DOMContentLoaded", () => {
   if (user != null && !user.isSignupComplete) {
-    document.getElementById("myModal").style.display = "flex";
+    openModal();
   }
 });
 
@@ -57,8 +57,17 @@ async function submitData() {
   }
 }
 
+// 모달 열기
+function openModal() {
+  document.getElementById("myModal").style.display = "flex";
+}
+
 // 모달 닫기 함수
 function closeModal() {
   document.getElementById("myModal").style.display = "none";
+}
+
+function editProfile() {
+  openModal();
 }
 
