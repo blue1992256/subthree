@@ -3,7 +3,7 @@ package org.blue1992256.subthree.oauth2.service;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.blue1992256.subthree.oauth2.repository.UserRepository;
+import org.blue1992256.subthree.repository.UserRepository;
 import org.blue1992256.subthree.oauth2.user.KakaoOAuth2UserInfo;
 import org.blue1992256.subthree.oauth2.user.OAuth2UserInfo;
 import org.blue1992256.subthree.oauth2.user.PrincipalDetails;

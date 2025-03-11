@@ -18,6 +18,10 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
     this.attributes = attributes;
   }
 
+  public Users getUser() {
+    return user;
+  }
+
   @Override
   public String getUsername() {
     return user.getUserId();

@@ -28,14 +28,49 @@
   </div>
 </div>
 
-<script>
-  function socialLogin() {
-    window.location.href = '/oauth2/authorization/kakao';
-  }
-  function logout() {
-    window.location.href = '/logout';
-  }
+<!-- 모달 창 -->
+<div  class="modal" id="myModal">
+  <div class="modal-content">
+    <h2>러너 기본정보</h2>
+
+    <!-- 성별 선택 (버튼형) -->
+    <label>성별</label>
+    <div class="gender-group">
+      <input type="radio" id="male" name="gender" value="남">
+      <label for="male">남</label>
+
+      <input type="radio" id="female" name="gender" value="여">
+      <label for="female">여</label>
+    </div>
+
+    <!-- 키 입력 -->
+    <label for="height">키 (cm)</label>
+    <input type="number" id="height" >
+
+    <!-- 체중 입력 -->
+    <label for="weight">체중 (kg)</label>
+    <input type="number" id="weight" >
+
+    <!-- 러닝 경력 선택 -->
+    <label for="running-years">러닝 몇 년차인가요?</label>
+    <select id="running-years">
+      <option value="~1년">1년 미만</option>
+      <option value="1~2년">1~2년</option>
+      <option value="2~5년">2~5년</option>
+      <option value="5년~">5년 이상</option>
+    </select>
+
+    <!-- 버튼 (제출 & 닫기) -->
+    <div class="modal-buttons">
+      <button class="submit-btn" onclick="submitData()">제출</button>
+    </div>
+  </div>
+</div>
+
+<script th:inline="javascript">
+  window.userData = /*[[${user}]]*/ {};
 </script>
+<script src="/js/index.js"></script>
 
 </body>
 </html>

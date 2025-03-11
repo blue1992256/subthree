@@ -32,7 +32,16 @@ public class Users {
   private String email;
 
   @Column(name = "gender")
-  private Character gender;
+  private String gender;
+
+  @Column(name = "weight")
+  private Integer weight;
+
+  @Column(name = "height")
+  private Integer height;
+
+  @Column(name = "running_years")
+  private String runningYears;
 
   @Column(name = "profile_image")
   private String profile_image;
