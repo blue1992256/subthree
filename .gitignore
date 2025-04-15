@@ -36,4 +36,9 @@ out/
 ### VS Code ###
 .vscode/
 
-*.yaml
+### properties, yaml ###
+**/src/main/resources/*.yaml
+**/src/main/resources/*.properties
+
+### h2 db ###
+data/
