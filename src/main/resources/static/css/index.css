@@ -1,4 +1,6 @@
 body {
+  margin: 0;
+  padding: 0;
   display: flex;
   justify-content: center;
   background: white;
@@ -6,8 +8,9 @@ body {
 
 .container {
   width: 1440px;
-  height: 1788px;
+  min-height: 100vh; /* 화면 높이에 맞게 조정 */
   position: relative;
+  overflow: hidden;
 }
 
 .header {
@@ -40,8 +43,8 @@ body {
 }
 
 .login-btn {
-  width: 132px;
-  height: 60px;
+  width: 100px;
+  height: 40px;
   background-image: url('/images/kakao-login-icon.png');
   background-size: cover;
   background-position: center;
@@ -95,42 +98,38 @@ body {
 }
 
 .title {
-  width: 349px;
-  height: 110px;
-  position: absolute;
-  top: 262px;
-  left: 50%;
-  transform: translateX(-50%);
+  width: 100%;
+  text-align: center;
   font-size: 64px;
   font-family: Inter, sans-serif;
   font-weight: 500;
   line-height: 96px;
   color: black;
-  text-align: center;
+  margin-top: 180px;
 }
 
 .main-content {
   width: 1249px;
-  height: 793px;
-  position: absolute;
-  top: 407px;
-  left: 96px;
+  height: 400px;
+  margin: 32px auto 0;
   background: #D9D3D3;
+  position: relative;
+  top: 0; /* 기존 absolute 제거 효과 */
 }
 
 .description {
   width: 1249px;
-  height: 384px;
-  position: absolute;
-  top: 1292px;
-  left: 96px;
-  font-size: 32px;
+  height: 200px;
+  margin: 24px auto;
+  font-size: 28px;
   font-family: Inter, sans-serif;
   font-weight: 500;
-  line-height: 48px;
+  line-height: 42px;
   color: black;
   display: flex;
   align-items: center;
+  position: relative;
+  top: 0;
 }
 
 /* 모달 버튼 */
@@ -274,4 +273,29 @@ input[type="number"] {
     opacity: 1;
     transform: scale(1);
   }
+}
+
+.board-buttons {
+  display: flex;
+  gap: 12px;
+  margin-right: auto;
+  margin-left: 48px;
+}
+
+.board-btn {
+  padding: 10px 16px;
+  font-size: 16px;
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.board-btn:hover {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
 }

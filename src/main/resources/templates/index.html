@@ -8,6 +8,13 @@
 <body>
 <div class="container">
   <div class="header">
+    <div class="board-buttons">
+      <button class="board-btn" onclick="location.href='/notice'">공지사항</button>
+      <button class="board-btn" onclick="location.href='/freeboard'">자유게시판</button>
+      <button class="board-btn" onclick="location.href='/qna'">Q&A</button>
+      <button class="board-btn" onclick="location.href='/reviews'">후기게시판</button>
+    </div>
+
     <div class="nav">
       <div sec:authorize="isAnonymous()" class="login-btn" onclick="socialLogin()"></div>
       <!-- 프로필 아이콘 및 드롭다운 -->
