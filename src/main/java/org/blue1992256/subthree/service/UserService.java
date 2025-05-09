@@ -1,5 +1,6 @@
 package org.blue1992256.subthree.service;
 
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.blue1992256.subthree.model.dto.UserDto;
@@ -14,14 +15,24 @@ public class UserService {
 
   private final UserRepository userRepository;
 
-  public void completeSignup(UserDto userDto) {
-    Users user = userRepository.findByUserId(userDto.getUserId()).get();
+  public String completeSignup(UserDto userDto) {
+    if (userRepository.countByUsername(userDto.getUsername()) > 0) {
+      return "duplicated";
+    }
+
+    Optional<Users> optionalUser = userRepository.findByUserId(userDto.getUserId());
+    if (optionalUser.isEmpty()) {
+      return "fail";
+    }
+    Users user = optionalUser.get();
+    user.setUsername(userDto.getUsername());
     user.setGender(userDto.getGender());
     user.setWeight(userDto.getWeight());
     user.setHeight(userDto.getHeight());
     user.setRunningYears(userDto.getRunningYears());
     user.set_signup_complete(true);
     userRepository.save(user);
+    return "success";
   }
 
 }

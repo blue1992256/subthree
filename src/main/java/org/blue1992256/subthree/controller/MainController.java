@@ -1,7 +1,9 @@
 package org.blue1992256.subthree.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.blue1992256.subthree.model.dto.UserDto;
+import org.blue1992256.subthree.model.vo.PageVo;
 import org.blue1992256.subthree.oauth2.user.PrincipalDetails;
 import org.blue1992256.subthree.oauth2.user.Users;
 import org.springframework.security.core.Authentication;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor
 public class MainController {
 
   @GetMapping("/")
@@ -23,6 +26,21 @@ public class MainController {
       model.addAttribute("user", userDto);
     }
     return "index";
+  }
+
+  @GetMapping("/notice")
+  public String notice(PageVo pageVo, Model model) {
+    return "notice";
+  }
+
+  @GetMapping("/qna")
+  public String qna(Authentication authentication, Model model) {
+    return "notice";
+  }
+
+  @GetMapping("/reviews")
+  public String reviews(Authentication authentication, Model model) {
+    return "notice";
   }
 
 }

@@ -17,11 +17,13 @@ function logout() {
 // 데이터 제출 함수
 async function submitData() {
   // 입력값 가져오기
+  const username = document.getElementById("username").value;
   const gender = document.querySelector('input[name="gender"]:checked');
   const height = document.getElementById("height").value;
   const weight = document.getElementById("weight").value;
   const runningYears = document.getElementById("running-years").value;
   const data = {
+    username: username,
     gender: gender.value,
     height: height,
     weight: weight,
@@ -30,7 +32,7 @@ async function submitData() {
   }
 
   // 값이 입력되지 않았을 경우 경고
-  if (!gender || !height || !weight || !runningYears) {
+  if (!username || !gender || !height || !weight || !runningYears) {
     alert("모든 항목을 입력해주세요!");
     return;
   }
@@ -48,6 +50,8 @@ async function submitData() {
     console.log(result);
     if (result.status === 'success') {
       closeModal();
+    } else if (result.status === 'dulicated') {
+      alert('해당 아이디는 사용중입니다.');
     } else {
       alert('오류가 발생했습니다');
     }
@@ -65,6 +69,16 @@ function openModal() {
 // 모달 닫기 함수
 function closeModal() {
   document.getElementById("myModal").style.display = "none";
+}
+
+// 로그인 모달 열기
+function openLoginModal() {
+  document.getElementById("loginModal").style.display = "flex";
+}
+
+// 로그인 모달 닫기 함수
+function closeLoginModal() {
+  document.getElementById("loginModal").style.display = "none";
 }
 
 function editProfile() {

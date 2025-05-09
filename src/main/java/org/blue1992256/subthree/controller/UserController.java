@@ -28,9 +28,8 @@ public class UserController {
 
     Users user = ((PrincipalDetails)authentication.getPrincipal()).getUser();
     if (user.getUserId().equals(userDto.getUserId())) {
-      userService.completeSignup(userDto);
-      response.setStatus("success");
-      response.setMessage("가입완료");
+      String result = userService.completeSignup(userDto);
+      response.setStatus(result);
       return response;
     }
 

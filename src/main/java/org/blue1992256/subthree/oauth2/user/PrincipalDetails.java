@@ -3,10 +3,12 @@ package org.blue1992256.subthree.oauth2.user;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+@Getter
 public class PrincipalDetails implements UserDetails, OAuth2User {
 
   private final Users user;
@@ -18,10 +20,6 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
     this.attributes = attributes;
   }
 
-  public Users getUser() {
-    return user;
-  }
-
   @Override
   public String getUsername() {
     return user.getUserId();
@@ -29,7 +27,7 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 
   @Override
   public String getName() {
-    return user.getName();
+    return user.getUsername();
   }
 
   @Override
