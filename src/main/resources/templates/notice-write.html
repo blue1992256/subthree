@@ -140,16 +140,16 @@
 
     <!-- 버튼 (제출 & 닫기) -->
     <div class="modal-buttons">
-      <button class="submit-btn" onclick="submitData()">저장</button>
+      <button class="submit-btn" onclick="modifyData()">저장</button>
       <button sec:authorize="isAuthenticated()" class="close-btn" onclick="closeModal()">닫기</button>
     </div>
   </div>
 </div>
 
+<script th:inline="javascript">
+  window.userData = /*[[${user}]]*/ {};
+</script>
 <script src="/js/index.js"></script>
 <script src="/js/fetch.js"></script>
-<script>
-
-</script>
 </body>
 </html>

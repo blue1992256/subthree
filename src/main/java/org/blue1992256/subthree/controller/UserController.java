@@ -46,7 +46,7 @@ public class UserController {
 
     Users user = ((PrincipalDetails)authentication.getPrincipal()).getUser();
     if (user.getUserId().equals(userDto.getUserId())) {
-      String result = userService.completeSignup(userDto);
+      String result = userService.modifyUserInfo(userDto);
       response.setStatus(result);
       return response;
     }

@@ -2,7 +2,7 @@ let user = window.userData;
 
 document.addEventListener("DOMContentLoaded", () => {
   if (user != null && !user.isSignupComplete) {
-    openModal();
+    openSignupModal();
   }
 });
 

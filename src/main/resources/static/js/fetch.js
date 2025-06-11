@@ -33,7 +33,7 @@ function addReview() {
   form.append("title", document.getElementById('title').value);
   form.append("content", document.getElementById('content').value);
 
-  fetch('/review/submit', {
+  fetch('/reviews/submit', {
     method: 'post',
     body: form,
     headers: {}
@@ -46,7 +46,7 @@ function addReview() {
   })
   .then(data => {
     if (data === 'success') {
-      location.href = '/board';
+      location.href = '/reviews';
     } else if (data === 'signup not finished') {
       alert('회원정보를 먼저 완료해주세요.');
     } else {

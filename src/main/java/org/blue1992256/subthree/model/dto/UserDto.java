@@ -1,11 +1,13 @@
 package org.blue1992256.subthree.model.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.blue1992256.subthree.oauth2.user.Users;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class UserDto {
 
   private String username;
