@@ -38,4 +38,22 @@ public class UserController {
     return response;
   }
 
+  // 유저 기본정보 수정
+  @ResponseBody
+  @PostMapping("/user/modify/info")
+  public Response<?> modifyUserInfo(Authentication authentication, @RequestBody UserDto userDto) {
+    Response<?> response = new Response<>();
+
+    Users user = ((PrincipalDetails)authentication.getPrincipal()).getUser();
+    if (user.getUserId().equals(userDto.getUserId())) {
+      String result = userService.completeSignup(userDto);
+      response.setStatus(result);
+      return response;
+    }
+
+    response.setStatus("fail");
+    response.setMessage("유저 정보가 옳지 않습니다");
+    return response;
+  }
+
 }

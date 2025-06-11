@@ -79,6 +79,8 @@ function submitComment() {
   .then(data => {
     if (data === 'success') {
       location.href = '/board/' + document.getElementById('board_id').value;
+    } else if (data === 'signup not finished') {
+      alert('회원정보를 먼저 완료해주세요.');
     } else {
       alert('에러가 발생했습니다.');
     }
@@ -106,7 +108,9 @@ function recommendPost() {
   .then(data => {
     if (data === 'success') {
       location.href = '/board/' + document.getElementById('board_id').value;
-    } else if (data === 'already liked') {
+    } else if (data === 'signup not finished') {
+      alert('회원정보를 먼저 완료해주세요.');
+    }  else if (data === 'already liked') {
       alert('이미 추천을 했습니다.');
     } else {
       alert('에러가 발생했습니다.');

@@ -1,5 +1,6 @@
 package org.blue1992256.subthree.controller;
 
+import java.security.Principal;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.blue1992256.subthree.model.dto.UserDto;
@@ -18,6 +19,8 @@ public class MainController {
   @GetMapping("/")
   public String index(Authentication authentication, Model model) {
     if (authentication != null) {
+      PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+      log.info("Principal {}", principal.getAuthorities().toString());
       Users user = ((PrincipalDetails)authentication.getPrincipal()).getUser();
       UserDto userDto = new UserDto();
       userDto.setUserId(user.getUserId());

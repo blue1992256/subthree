@@ -35,4 +35,18 @@ public class UserService {
     return "success";
   }
 
+  public String modifyUserInfo(UserDto userDto) {
+    Optional<Users> optionalUser = userRepository.findByUserId(userDto.getUserId());
+    if (optionalUser.isEmpty()) {
+      return "fail";
+    }
+    Users user = optionalUser.get();
+    user.setGender(userDto.getGender());
+    user.setWeight(userDto.getWeight());
+    user.setHeight(userDto.getHeight());
+    user.setRunningYears(userDto.getRunningYears());
+    userRepository.save(user);
+    return "success";
+  }
+
 }

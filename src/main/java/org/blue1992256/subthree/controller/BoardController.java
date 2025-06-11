@@ -102,6 +102,9 @@ public class BoardController {
     PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
     Users user = principalDetails.getUser();
     boardsDto.setUser(user);
+    if (!user.is_signup_complete()) {
+      return "signup not finished";
+    }
     if (!boardService.increaseLikes(boardsDto)) {
       return "already liked";
     }
@@ -117,6 +120,9 @@ public class BoardController {
     PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
     Users user = principalDetails.getUser();
     boardsDto.setUser(user);
+    if (!user.is_signup_complete()) {
+      return "signup not finished";
+    }
     if (boardService.submitComment(boardsDto)) {
       return "success";
     }
@@ -132,6 +138,9 @@ public class BoardController {
     PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
     Users user = principalDetails.getUser();
     boardsDto.setUser(user);
+    if (!user.is_signup_complete()) {
+      return "signup not finished";
+    }
     if (boardService.deleteComment(boardsDto)) {
       return "success";
     }

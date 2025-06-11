@@ -23,7 +23,12 @@
         <div class="profile-menu" sec:authorize="isAuthenticated()">
           <i class="profile-icon"></i>
           <div class="dropdown-menu">
-            <div class="dropdown-item" onclick="editProfile()">정보 수정</div>
+            <div sec:authorize="hasAuthority('SIGNUP_INCOMPLETE')">
+              <div class="dropdown-item" onclick="openSignupModal()">정보 수정</div>
+            </div>
+            <div sec:authorize="hasAuthority('SIGNUP_COMPLETE')">
+              <div class="dropdown-item" onclick="openUserModal()">정보 수정</div>
+            </div>
             <div class="dropdown-item" onclick="logout()">로그아웃</div>
           </div>
         </div>
@@ -89,6 +94,50 @@
       </div>
     </div>
 
+  </div>
+</div>
+
+<!-- 모달 창 -->
+<div  class="modal" id="signupModal">
+  <div class="modal-content">
+    <h2>러너 기본정보</h2>
+
+    <!-- 키 입력 -->
+    <label for="signup-username">닉네임</label>
+    <input type="text" id="signup-username" >
+
+    <!-- 성별 선택 (버튼형) -->
+    <label>성별</label>
+    <div class="gender-group">
+      <input type="radio" id="signup-male" name="gender" value="남">
+      <label for="signup-male">남</label>
+
+      <input type="radio" id="signup-female" name="gender" value="여">
+      <label for="signup-female">여</label>
+    </div>
+
+    <!-- 키 입력 -->
+    <label for="signup-height">키 (cm)</label>
+    <input type="number" id="signup-height" >
+
+    <!-- 체중 입력 -->
+    <label for="signup-weight">체중 (kg)</label>
+    <input type="number" id="signup-weight" >
+
+    <!-- 러닝 경력 선택 -->
+    <label for="signup-running-years">러닝 몇 년차인가요?</label>
+    <select id="signup-running-years">
+      <option value="~1년">1년 미만</option>
+      <option value="1~2년">1~2년</option>
+      <option value="2~5년">2~5년</option>
+      <option value="5년~">5년 이상</option>
+    </select>
+
+    <!-- 버튼 (제출 & 닫기) -->
+    <div class="modal-buttons">
+      <button class="submit-btn" onclick="submitData()">저장</button>
+      <button sec:authorize="isAuthenticated()" class="close-btn" onclick="closeSignupModal()">닫기</button>
+    </div>
   </div>
 </div>
 
