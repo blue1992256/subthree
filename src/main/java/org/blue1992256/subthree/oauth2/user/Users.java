@@ -28,6 +28,9 @@ public class Users {
   @Column(name = "username")
   private String username;
 
+  @Column(name = "role")
+  private String role;
+
   @Column(name = "email")
   private String email;
 
@@ -63,13 +66,14 @@ public class Users {
   private LocalDateTime reg_date;
 
   @Builder
-  public Users(String userId, String email, String profile_image, String provider, String provider_id, String connected_at) {
+  public Users(String userId, String email, String profile_image, String provider, String provider_id, String connected_at, String role) {
     this.userId = userId;
     this.email = email;
     this.profile_image = profile_image;
     this.provider = provider;
     this.provider_id = provider_id;
     this.connected_at = connected_at;
+    this.role = role;
   }
 
 }

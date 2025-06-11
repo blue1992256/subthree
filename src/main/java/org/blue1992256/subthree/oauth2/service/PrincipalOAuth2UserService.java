@@ -44,6 +44,7 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
           .provider(oAuth2UserInfo.getProvider().getProvider())
           .provider_id(oAuth2UserInfo.getProviderId())
           .connected_at(oAuth2UserInfo.getConnectedAt())
+          .role("ROLE_USER")
           .build();
       userRepository.save(user);
 
