@@ -38,48 +38,15 @@
         <span class="author" th:text="${board.username}">러너김</span> |
         <span class="date" th:text="${board.regDate}">2025-05-08</span> |
         <span class="views">조회수: <span th:text="${board.views}">123</span></span> |
-        <span class="likes">추천수: <span th:text="${board.likes}">10</span></span>
       </div>
 
       <div class="post-content" th:utext="${board.content}"></div>
       <th:block th:value="${#authentication}"></th:block>
       <th:block th:value="${#authentication.principal}"></th:block>
-
-      <div class="recommend-section">
-        <button sec:authorize="isAnonymous()" class="recommend-btn" onclick="openLoginModal()">👍 추천하기</button>
-        <button sec:authorize="isAuthenticated()" class="recommend-btn" onclick="recommendPost()">👍 추천하기</button>
-      </div>
-
       <hr/>
 
-      <div class="comments-section">
-        <h3>댓글</h3>
-        <div class="comment-form">
-          <textarea id="commentInput" placeholder="댓글을 입력하세요"></textarea>
-          <button sec:authorize="isAnonymous()"  class="comment-btn" onclick="openLoginModal()">댓글 게시</button>
-          <button sec:authorize="isAuthenticated()" class="comment-btn" onclick="submitComment()">댓글 게시</button>
-        </div>
-
-        <div class="comment-list">
-          <div class="comment" th:each="comment : ${board.commentsList}">
-            <div th:if="${#authorization.expression('isAuthenticated()') and comment.username == #authentication.principal.name}">
-              <button class="comment-delete-btn"
-                      th:attr="data-id=${comment.id}"
-                      th:onclick="'deleteComment(' + ${comment.id} + ')'">×</button>
-            </div>
-            <div class="comment-meta">
-              <span class="comment-author" th:text="${comment.username}"></span> |
-              <span class="comment-date" th:text="${comment.regDate}"></span>
-            </div>
-            <div class="comment-content" th:text="${comment.content}"></div>
-          </div>
-        </div>
-      </div>
-
       <div class="post-actions">
-        <button sec:authorize="isAnonymous()" class="write-btn" onclick="openLoginModal()">글쓰기</button>
-        <button sec:authorize="isAuthenticated()" class="write-btn" onclick="location.href='/board/write'">글쓰기</button>
-        <button class="cancel-btn" onclick="location.href='/board'">목록으로</button>
+        <button class="cancel-btn" onclick="location.href='/notice'">목록으로</button>
       </div>
     </div>
   </div>

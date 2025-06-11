@@ -33,10 +33,10 @@
 
   <div class="board-container">
     <div class="board-header">
-      <h2>자유게시판</h2>
+      <h2>공지사항</h2>
     </div>
 
-    <form class="post-form" method="post" action="/boards/submit">
+    <form class="post-form" method="post" action="/notice/submit">
       <div class="form-group">
         <label for="title">제목</label>
         <input type="text" id="title" name="title" placeholder="제목을 입력하세요" required>
@@ -48,7 +48,7 @@
       </div>
 
       <div class="form-buttons">
-        <button type="button" class="submit-btn" onclick="addBoard()">등록</button>
+        <button type="button" class="submit-btn" onclick="addNotice()">등록</button>
         <button type="button" class="cancel-btn" onclick="history.back()">취소</button>
       </div>
     </form>
