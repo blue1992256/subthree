@@ -25,7 +25,7 @@ public class BoardController {
 
   @GetMapping("/board")
   public String freeboard(PageVo pageVo, Model model) {
-    model.addAttribute("boardList", boardService.getBoardsList(pageVo));
+    model.addAttribute("boardList", boardService.getBoardsList(pageVo, "BOARD"));
     model.addAttribute("pageVo", pageVo);
     return "boards";
   }
@@ -44,6 +44,7 @@ public class BoardController {
     PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
     Users user = principalDetails.getUser();
     boardsDto.setUser(user);
+    boardsDto.setType("BOARD");
     if (!boardService.addBoards(boardsDto)) {
       return "fail";
     }
@@ -55,6 +56,41 @@ public class BoardController {
     boardService.increaseViews(id);
     model.addAttribute("board", boardService.getBoards(id));
     return "boards-view";
+  }
+
+  @GetMapping("/reviews")
+  public String reviewBoard(PageVo pageVo, Model model) {
+    model.addAttribute("boardList", boardService.getBoardsList(pageVo, "REVIEW"));
+    model.addAttribute("pageVo", pageVo);
+    return "review";
+  }
+
+  @GetMapping("/reviews/write")
+  public String reviewBoard() {
+    return "review-write";
+  }
+
+  @ResponseBody
+  @PostMapping("/reviews/submit")
+  public String submitReview(Authentication authentication, BoardsDto boardsDto) {
+    if (authentication == null) {
+      return "fail";
+    }
+    PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+    Users user = principalDetails.getUser();
+    boardsDto.setUser(user);
+    boardsDto.setType("REVIEW");
+    if (!boardService.addBoards(boardsDto)) {
+      return "fail";
+    }
+    return "success";
+  }
+
+  @GetMapping("/reviews/{id}")
+  public String getReview(@PathVariable("id") Long id, Model model) {
+    boardService.increaseViews(id);
+    model.addAttribute("board", boardService.getBoards(id));
+    return "review-view";
   }
 
   @ResponseBody

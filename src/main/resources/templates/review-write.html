@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <title>섭쓰리</title>
+  <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="top-bar">
+      <div class="main-banner" onclick="location.href='/'">
+        🏃 섭쓰리 | Sub 3 러너 커뮤니티
+      </div>
+      <div class="board-buttons">
+        <button class="board-btn" onclick="location.href='/notice'">공지사항</button>
+        <button class="board-btn" onclick="location.href='/board'">자유게시판</button>
+        <button class="board-btn" onclick="location.href='/reviews'">후기게시판</button>
+      </div>
+      <div class="nav">
+        <div sec:authorize="isAnonymous()" class="login-btn" onclick="socialLogin()"></div>
+        <div class="profile-menu" sec:authorize="isAuthenticated()">
+          <i class="profile-icon"></i>
+          <div class="dropdown-menu">
+            <div class="dropdown-item" onclick="editProfile()">정보 수정</div>
+            <div class="dropdown-item" onclick="logout()">로그아웃</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="header-divider"/>
+  </div>
+
+  <div class="board-container">
+    <div class="board-header">
+      <h2>후기게시판</h2>
+    </div>
+
+    <form class="post-form" method="post" action="/reviews/submit">
+      <div class="form-group">
+        <label for="title">제목</label>
+        <input type="text" id="title" name="title" placeholder="제목을 입력하세요" required>
+      </div>
+
+      <div class="form-group">
+        <label for="content">내용</label>
+        <textarea id="content" name="content" rows="10" placeholder="내용을 입력하세요" required></textarea>
+      </div>
+
+      <div class="form-buttons">
+        <button type="button" class="submit-btn" onclick="addReview()">등록</button>
+        <button type="button" class="cancel-btn" onclick="history.back()">취소</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/js/index.js"></script>
+<script src="/js/fetch.js"></script>
+<script>
+
+</script>
+</body>
+</html>

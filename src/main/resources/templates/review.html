@@ -32,19 +32,63 @@
     <hr class="header-divider"/>
   </div>
 
-  <div class="title">러너들의 기록, 경험, 열정이 모이는 곳</div>
-  <div class="main-content" style="position: relative; background-image: url('/images/running_banner1.jpg'); background-size: cover; height: 400px;">
-    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-              background: rgba(0, 0, 0, 0.5); color: white; padding: 20px; border-radius: 12px;">
-      <h1>Sub 3를 향한 여정에 함께하세요</h1>
-      <p>기록보다 중요한 건, 함께 달리는 즐거움</p>
+  <div class="board-container">
+    <div class="board-header">
+      <h2>후기게시판</h2>
+      <div sec:authorize="isAnonymous()">
+        <button type="button" class="write-btn" onclick="openLoginModal()">글쓰기</button>
+      </div>
+      <div sec:authorize="isAuthenticated()">
+        <button class="write-btn" onclick="location.href='/reviews/write'">글쓰기</button>
+      </div>
     </div>
-  </div>
-  <div class="description">
-    섭쓰리는 3시간 이내 마라톤 완주(Sub 3)를 목표로 하거나,
-    러닝을 사랑하는 누구나 함께 소통하고 성장하는 커뮤니티입니다.<br/>
-    자유게시판에서 함께 고민을 나누고, 훈련 후기와 Q&A로 서로를 응원하세요.<br/>
-    당신의 러닝 여정, 여기서 시작됩니다.
+
+    <table class="post-table">
+      <thead>
+      <tr>
+        <th>글번호</th>
+        <th>제목</th>
+        <th>글쓴이</th>
+        <th>게시일</th>
+        <th>추천수</th>
+        <th>조회수</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="board, stat : ${boardList}">
+        <td th:text="${pageVo.totalCount - ((pageVo.page - 1) * pageVo.pageSize) - stat.index}"></td>
+        <td><a th:href="@{'/reviews/' + ${board.id}}" th:text="${board.title}"></a></td>
+        <td th:text="${board.username}"></td>
+        <td th:text="${board.regDate}"></td>
+        <td th:text="${board.likes}"></td>
+        <td th:text="${board.views}"></td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="pagination">
+      <div class="form-wrapper rounded">
+        <div class="form-container">
+          <!-- 처음 버튼 (항상 1페이지) -->
+          <a onclick="movePage(1)" class="btn btn-text" th:classappend="${pageVo.page == 1} ? 'disabled' : ''">처음</a>
+
+          <!-- 페이지 번호 (5개씩 표시) -->
+          <th:block th:with="totalPages=${(pageVo.totalCount - 1) / pageVo.pageSize + 1}, startPage=${(pageVo.page - 1) / 5 * 5 + 1},
+              endPage=${startPage + 4 > totalPages ? totalPages : startPage + 4}">
+            <a th:each="i : ${#numbers.sequence(startPage, endPage)}"
+               th:onclick="|movePage(${i})|"
+               th:text="${i}"
+               class="btn btn-text"
+               th:classappend="${i == pageVo.page} ? 'active' : ''">
+            </a>
+          </th:block>
+
+          <!-- 끝 버튼 (항상 마지막 페이지) -->
+          <a th:onclick="|movePage(${pageVo.totalPages})|" class="btn btn-text" th:classappend="${pageVo.page == pageVo.totalPages} ? 'disabled' : ''">끝</a>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -52,10 +96,6 @@
 <div  class="modal" id="myModal">
   <div class="modal-content">
     <h2>러너 기본정보</h2>
-
-    <!-- 키 입력 -->
-    <label for="username">닉네임</label>
-    <input type="text" id="username" >
 
     <!-- 성별 선택 (버튼형) -->
     <label>성별</label>
@@ -88,6 +128,16 @@
     <div class="modal-buttons">
       <button class="submit-btn" onclick="submitData()">저장</button>
       <button sec:authorize="isAuthenticated()" class="close-btn" onclick="closeModal()">닫기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 로그인 안내 모달 -->
+<div class="modal" id="loginModal">
+  <div class="modal-content">
+    <h2>로그인이 필요한 서비스입니다.</h2>
+    <div class="modal-buttons">
+      <button class="close-btn" onclick="closeLoginModal()">닫기</button>
     </div>
   </div>
 </div>

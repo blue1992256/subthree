@@ -34,6 +34,9 @@ public class Boards {
   @Column(name = "content")
   private String content;
 
+  @Column(name = "type")
+  private String type;
+
   @OneToMany(mappedBy = "boards")
   private List<Comments> commentsList = new ArrayList<>();
 

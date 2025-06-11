@@ -27,9 +27,4 @@ public class MainController {
     return "index";
   }
 
-  @GetMapping("/reviews")
-  public String reviews(Authentication authentication, Model model) {
-    return "notice";
-  }
-
 }

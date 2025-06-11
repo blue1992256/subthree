@@ -25,24 +25,24 @@ public class BoardService {
   private final BoardLikesRepository boardLikesRepository;
   private final CommentsRepository commentsRepository;
 
-  public List<BoardsDto> getBoardsList(PageVo pageVo) {
+  public List<BoardsDto> getBoardsList(PageVo pageVo, String type) {
     List<Boards> boardList;
     switch (pageVo.getSearchType()) {
       case "title" -> {
-        pageVo.setTotalCount(boardsRepository.countAllByTitle(pageVo.getKeyword()));
-        boardList = boardsRepository.findAllByTitle(pageVo.getKeyword(), pageVo.getPageRequest());
+        pageVo.setTotalCount(boardsRepository.countAllByTitle(pageVo.getKeyword(), type));
+        boardList = boardsRepository.findAllByTitle(pageVo.getKeyword(), pageVo.getPageRequest(), type);
       }
       case "content" -> {
-        pageVo.setTotalCount(boardsRepository.countAllByContent(pageVo.getKeyword()));
-        boardList = boardsRepository.findAllByContent(pageVo.getKeyword(), pageVo.getPageRequest());
+        pageVo.setTotalCount(boardsRepository.countAllByContent(pageVo.getKeyword(), type));
+        boardList = boardsRepository.findAllByContent(pageVo.getKeyword(), pageVo.getPageRequest(), type);
       }
       case "titleAndContent" -> {
-        pageVo.setTotalCount(boardsRepository.countAllByTitleAndContent(pageVo.getKeyword()));
-        boardList = boardsRepository.findAllByTitleAndContent(pageVo.getKeyword(), pageVo.getPageRequest());
+        pageVo.setTotalCount(boardsRepository.countAllByTitleAndContent(pageVo.getKeyword(), type));
+        boardList = boardsRepository.findAllByTitleAndContent(pageVo.getKeyword(), pageVo.getPageRequest(), type);
       }
       default -> {
-        pageVo.setTotalCount(boardsRepository.countAllBy());
-        boardList = boardsRepository.findAllBy(pageVo.getPageRequest());
+        pageVo.setTotalCount(boardsRepository.countAllBy(type));
+        boardList = boardsRepository.findAllBy(pageVo.getPageRequest(), type);
       }
     }
     List<BoardsDto> boardDtoList = new ArrayList<>();
@@ -60,6 +60,7 @@ public class BoardService {
     boards.setTitle(boardsDto.getTitle());
     boards.setContent(boardsDto.getContent());
     boards.setUsers(boardsDto.getUser());
+    boards.setType(boardsDto.getType());
     boards.setStatus("published");
     boardsRepository.save(boards);
     return true;

@@ -26,9 +26,43 @@ function addBoard() {
   }); // 오류 발생 시 콜백 실행
 }
 
-function submitComment() {
+function addReview() {
   let form = new FormData();
-  form.append("content", document.getElementById('commentInput').value);
+  form.append("title", document.getElementById('title').value);
+  form.append("content", document.getElementById('content').value);
+
+  fetch('/review/submit', {
+    method: 'post',
+    body: form,
+    headers: {}
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.text();
+  })
+  .then(data => {
+    if (data === 'success') {
+      location.href = '/board';
+    } else {
+      alert('에러가 발생했습니다.');
+    }
+  }) // 성공 시 콜백 실행
+  .catch(err => {
+    console.error(err);
+  }); // 오류 발생 시 콜백 실행
+}
+
+function submitComment() {
+  const content = document.getElementById('commentInput').value;
+  if (content === null || content === '') {
+    alert('내용을 입력하세요.');
+    return;
+  }
+
+  let form = new FormData();
+  form.append("content", content);
   form.append("id", document.getElementById('board_id').value);
 
   fetch('/board/comment/submit', {

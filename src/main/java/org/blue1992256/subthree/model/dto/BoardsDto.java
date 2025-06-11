@@ -15,6 +15,7 @@ public class BoardsDto {
   private Long id;
   private String title;
   private String content;
+  private String type;
   private String username;
   private List<CommentsDto> commentsList;
   private Integer likes;
