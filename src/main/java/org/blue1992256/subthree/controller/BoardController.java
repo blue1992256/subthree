@@ -3,6 +3,7 @@ package org.blue1992256.subthree.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.blue1992256.subthree.model.dto.BoardsDto;
+import org.blue1992256.subthree.model.dto.UserDto;
 import org.blue1992256.subthree.model.vo.PageVo;
 import org.blue1992256.subthree.oauth2.user.PrincipalDetails;
 import org.blue1992256.subthree.oauth2.user.Users;
@@ -24,14 +25,20 @@ public class BoardController {
   private final BoardService boardService;
 
   @GetMapping("/board")
-  public String freeboard(PageVo pageVo, Model model) {
+  public String freeboard(Authentication authentication, PageVo pageVo, Model model) {
     model.addAttribute("boardList", boardService.getBoardsList(pageVo, "BOARD"));
     model.addAttribute("pageVo", pageVo);
+    if (authentication != null) {
+      model.addAttribute("user", new UserDto(((PrincipalDetails)authentication.getPrincipal()).getUser()));
+    }
     return "boards";
   }
 
   @GetMapping("/board/write")
-  public String freeboard() {
+  public String freeboard(Authentication authentication, Model model) {
+    if (authentication != null) {
+      model.addAttribute("user", new UserDto(((PrincipalDetails)authentication.getPrincipal()).getUser()));
+    }
     return "boards-write";
   }
 
@@ -55,21 +62,30 @@ public class BoardController {
   }
 
   @GetMapping("/board/{id}")
-  public String getBoard(@PathVariable("id") Long id, Model model) {
+  public String getBoard(Authentication authentication, @PathVariable("id") Long id, Model model) {
     boardService.increaseViews(id);
     model.addAttribute("board", boardService.getBoards(id));
+    if (authentication != null) {
+      model.addAttribute("user", new UserDto(((PrincipalDetails)authentication.getPrincipal()).getUser()));
+    }
     return "boards-view";
   }
 
   @GetMapping("/reviews")
-  public String reviewBoard(PageVo pageVo, Model model) {
+  public String reviewBoard(Authentication authentication, PageVo pageVo, Model model) {
     model.addAttribute("boardList", boardService.getBoardsList(pageVo, "REVIEW"));
     model.addAttribute("pageVo", pageVo);
+    if (authentication != null) {
+      model.addAttribute("user", new UserDto(((PrincipalDetails)authentication.getPrincipal()).getUser()));
+    }
     return "review";
   }
 
   @GetMapping("/reviews/write")
-  public String reviewBoard() {
+  public String reviewBoard(Authentication authentication, Model model) {
+    if (authentication != null) {
+      model.addAttribute("user", new UserDto(((PrincipalDetails)authentication.getPrincipal()).getUser()));
+    }
     return "review-write";
   }
 
@@ -93,9 +109,12 @@ public class BoardController {
   }
 
   @GetMapping("/reviews/{id}")
-  public String getReview(@PathVariable("id") Long id, Model model) {
+  public String getReview(Authentication authentication, @PathVariable("id") Long id, Model model) {
     boardService.increaseViews(id);
     model.addAttribute("board", boardService.getBoards(id));
+    if (authentication != null) {
+      model.addAttribute("user", new UserDto(((PrincipalDetails)authentication.getPrincipal()).getUser()));
+    }
     return "review-view";
   }
 

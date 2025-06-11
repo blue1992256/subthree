@@ -20,7 +20,9 @@
       <div class="nav">
         <div sec:authorize="isAnonymous()" class="login-btn" onclick="socialLogin()"></div>
         <div class="profile-menu" sec:authorize="isAuthenticated()">
-          <i class="profile-icon"></i>
+          <div class="profile-icon"
+               th:style="${user.profileImage} != null ? 'background-image: url(' + ${user.profileImage} + ')' : ''">
+          </div>
           <div class="dropdown-menu">
             <div sec:authorize="hasAuthority('SIGNUP_INCOMPLETE')">
               <div class="dropdown-item" onclick="openSignupModal()">정보 수정</div>

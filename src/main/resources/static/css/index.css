@@ -63,6 +63,7 @@ body {
   background-image: url('/images/profile-icon.png');
   background-size: cover;
   background-position: center;
+  border-radius: 50%;
 }
 
 .dropdown-menu {

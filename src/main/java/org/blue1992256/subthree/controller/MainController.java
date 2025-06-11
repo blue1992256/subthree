@@ -19,10 +19,7 @@ public class MainController {
   public String index(Authentication authentication, Model model) {
     if (authentication != null) {
       Users user = ((PrincipalDetails)authentication.getPrincipal()).getUser();
-      UserDto userDto = new UserDto();
-      userDto.setUserId(user.getUserId());
-      userDto.setIsSignupComplete(user.is_signup_complete());
-      model.addAttribute("user", userDto);
+      model.addAttribute("user", new UserDto(user));
     }
     return "index";
   }

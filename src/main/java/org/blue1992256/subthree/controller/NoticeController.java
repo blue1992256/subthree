@@ -3,6 +3,7 @@ package org.blue1992256.subthree.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.blue1992256.subthree.model.dto.NoticeDto;
+import org.blue1992256.subthree.model.dto.UserDto;
 import org.blue1992256.subthree.model.vo.PageVo;
 import org.blue1992256.subthree.oauth2.user.PrincipalDetails;
 import org.blue1992256.subthree.oauth2.user.Users;
@@ -23,19 +24,23 @@ public class NoticeController {
   private final NoticeService noticeService;
 
   @GetMapping("/notice")
-  public String notice(PageVo pageVo, Model model) {
+  public String notice(Authentication authentication, PageVo pageVo, Model model) {
     model.addAttribute("boardList", noticeService.getNoticeList(pageVo));
     model.addAttribute("pageVo", pageVo);
+    if (authentication != null) {
+      model.addAttribute("user", new UserDto(((PrincipalDetails)authentication.getPrincipal()).getUser()));
+    }
     return "notice";
   }
 
   @GetMapping("/notice/write")
-  public String notice(Authentication authentication) {
+  public String notice(Authentication authentication, Model model) {
     if (authentication != null) {
       Users user = ((PrincipalDetails)authentication.getPrincipal()).getUser();
       if (!user.getRole().equals("ROLE_ADMIN")) {
         return "redirect:/notice";
       }
+      model.addAttribute("user", new UserDto(((PrincipalDetails)authentication.getPrincipal()).getUser()));
     }
     return "notice-write";
   }
@@ -59,9 +64,12 @@ public class NoticeController {
   }
 
   @GetMapping("/notice/{id}")
-  public String getNotice(@PathVariable("id") Long id, Model model) {
+  public String getNotice(Authentication authentication, @PathVariable("id") Long id, Model model) {
     noticeService.increaseViews(id);
     model.addAttribute("board", noticeService.getNotice(id));
+    if (authentication != null) {
+      model.addAttribute("user", new UserDto(((PrincipalDetails)authentication.getPrincipal()).getUser()));
+    }
     return "notice-view";
   }
 
