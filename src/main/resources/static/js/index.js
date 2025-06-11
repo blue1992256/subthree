@@ -49,7 +49,7 @@ async function submitData() {
     const result = await response.json();
     console.log(result);
     if (result.status === 'success') {
-      closeModal();
+      closeSignupModal();
     } else if (result.status === 'dulicated') {
       alert('해당 아이디는 사용중입니다.');
     } else {

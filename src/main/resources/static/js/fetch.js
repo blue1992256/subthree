@@ -17,6 +17,8 @@ function addBoard() {
   .then(data => {
     if (data === 'success') {
       location.href = '/board';
+    } else if (data === 'signup not finished') {
+      alert('회원정보를 먼저 완료해주세요.');
     } else {
       alert('에러가 발생했습니다.');
     }
@@ -45,6 +47,8 @@ function addReview() {
   .then(data => {
     if (data === 'success') {
       location.href = '/board';
+    } else if (data === 'signup not finished') {
+      alert('회원정보를 먼저 완료해주세요.');
     } else {
       alert('에러가 발생했습니다.');
     }

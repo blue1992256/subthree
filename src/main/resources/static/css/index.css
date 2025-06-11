@@ -235,6 +235,19 @@ input[type="number"] {
   border-color: #ea3765;
 }
 
+/* 성별 선택 시 스타일 변경 */
+.gender-group input#signup-male:checked + label {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.gender-group input#signup-female:checked + label {
+  background: #ea3765;
+  color: white;
+  border-color: #ea3765;
+}
+
 /* 버튼 스타일 */
 .modal-buttons {
   margin-top: 15px;
